@@ -1,5 +1,9 @@
 # Translations
 
+Mapping translations of feminist literature in Europe 1750-1930.
+
+Original FusionTable: https://fusiontables.google.com/DataSource?docid=1kUC2CZ-DL1_W2la9GH0CIE6ll6LSFNoJFo8gTTKe&invite=CIrm9N4O#map:id=10
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.2.
 
 ## Development server
