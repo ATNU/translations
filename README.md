@@ -27,7 +27,6 @@ The development build uses a generic node 8 container with a mounted volume cont
 5. Start the development webserver
 
 The full command can be seen in the `docker-compose-dev.yaml` file.
-```
 
 Run the container using docker compose
 
