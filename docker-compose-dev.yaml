@@ -1,0 +1,13 @@
+version: "3"
+services:
+  client:
+    image: node:8
+    volumes:
+      - "./client/:/usr/local/app"
+    command: bash -c "cd /usr/local/app && npm install -g @angular/cli && npm install && npm rebuild node-sass && npm run start"
+    ports:
+      - "4200:4200"
+    networks:
+      - translations
+networks:
+  translations:

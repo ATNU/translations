@@ -2,30 +2,49 @@
 
 Mapping translations of feminist literature in Europe 1750-1930.
 
-Original FusionTable: https://fusiontables.google.com/DataSource?docid=1kUC2CZ-DL1_W2la9GH0CIE6ll6LSFNoJFo8gTTKe&invite=CIrm9N4O#map:id=10
+#### Developers
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.2.
+[Mark Turner](https://github.com/markdturner)
 
-## Development server
+#### Researchers
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+[Laura Kirkley](https://www.ncl.ac.uk/elll/staff/profile/laurakirkley.html#background)  
+[James Cummings](https://www.ncl.ac.uk/elll/staff/profile/jamescummings.html#background)
+[Tiago Sousa Garcia](https://www.ncl.ac.uk/elll/staff/profile/tiagosousa-garcia.html#background)
 
-## Code scaffolding
+## Development Build
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+The application is built on Angular 7.2. It uses NPM for its package management and Angular CLI for its build process.
 
-## Build
+###
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+The development build uses a generic node 8 container with a mounted volume containing all the source code. The compose file uses the command option to pass a sequence of bash commands to setup the environment.
 
-## Running unit tests
+1. Change directory into the mounted volume
+2. Globally install angular-cli
+3. Install application dependencies
+4. Rebuild the node-sass dependency from source
+5. Start the development webserver
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+The full command can be seen in the `docker-compose-dev.yaml` file.
+```
 
-## Running end-to-end tests
+Run the container using docker compose
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+```
+docker-compose -f docker-compose-dev.yaml up -d
+```
 
-## Further help
+This runs the contain in detached mode so there will be no log output. To view logs run
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+```
+docker-compose -f docker-compose-dev.yaml logs client
+```
+
+To enter the container run
+
+```
+docker-compose -f docker-compose-dev.yaml exec client bash
+```
+
+## Production Build
