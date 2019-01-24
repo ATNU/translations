@@ -10,7 +10,6 @@ export class MapComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    //console.log(borders);
   }
 
 }
