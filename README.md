@@ -34,10 +34,16 @@ Run the container using docker compose
 docker-compose -f docker-compose-dev.yaml up -d
 ```
 
-This runs the contain in detached mode so there will be no log output. To view logs run
+The container will start immediately but the application will take some time to start whilst it installs all the dependencies. Once it has started it will be available on [localhost:4200](http://localhost:4200). This command runs the container in detached mode so there will be no log output. To view logs run
 
 ```
 docker-compose -f docker-compose-dev.yaml logs client
+```
+
+Alternatively to always see the log output, run in attached mode with
+
+```
+docker-compose -f docker-compose-dev.yaml up
 ```
 
 To enter the container run
