@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TimelineComponent implements OnInit {
 
+  testTitle: string;
+  selectedYear: number;
+
   constructor() { }
 
   ngOnInit() {
+    //selectedYear is the value for the slider
+    this.selectedYear=1789;
   }
 
 }

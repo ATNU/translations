@@ -1,3 +1,6 @@
-<p>
-  timeline works!
-</p>
+<mat-card>
+  <mat-card-content>
+    <mat-slider min="1789" max="1929" step="1" tick="auto" [(ngModel)]="selectedYear"></mat-slider>
+    <p>Selected year: {{selectedYear}}</p>
+  </mat-card-content>
+</mat-card>
