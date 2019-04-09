@@ -18,3 +18,21 @@ app-translation {
     display: block;
     width: 30%;
 }
+
+.sliderStyle{
+    width: 50%;
+}
+.sliderStyle{
+    .mat-slider-thumb {
+        background-color: #b0bec5;
+        border-radius: 0%;
+        width:2px;
+    }
+    .mat-slider-track-background {
+        background-color: #d1d9dd;
+    }
+    .mat-slider-track-fill {
+        background-color: #d1d9dd;
+    }
+}
+
