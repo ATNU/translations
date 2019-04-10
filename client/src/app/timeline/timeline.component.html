@@ -1,7 +1,8 @@
 <mat-card>
   <mat-card-content>
 
-      <span class="text-small">1789 </span><mat-slider class="sliderStyle" min="1789" max="1929" step="1" tickInterval="10" [(ngModel)]="selectedYear" (slideend)="sliderChange()"></mat-slider><span class="text-small"> 1929</span>
+      <span class="text-small">1789 </span><mat-slider class="sliderStyle" min="1789" max="1929" step="1" tickInterval="10" [(ngModel)]="selectedYear"></mat-slider><span class="text-small"> 1929</span>
+      <button (click)="sendValue()">submit</button>
       <div>
         <button mat-icon-button (click)="playTimeline()">
           <mat-icon>forward</mat-icon>

@@ -4,8 +4,7 @@ import { DateService } from '../services/date.service';
 @Component({
   selector: 'app-timeline',
   templateUrl: './timeline.component.html',
-  styleUrls: ['./timeline.component.scss'],
-  providers: [DateService]
+  styleUrls: ['./timeline.component.scss']
 })
 export class TimelineComponent implements OnInit {
 /*
@@ -32,8 +31,13 @@ ngOnInit() {
   this.dateS.currentYear.subscribe(selectedYear => this.selectedYear = selectedYear)
 }
 
-sliderChange(){
+sliderChange(value : number){
   console.log('sending over year to the service' + this.selectedYear);
+  this.dateS.changeSelectedYear(this.selectedYear);
+}
+
+sendValue(){
+  console.log('sending over year to the service 2' + this.selectedYear);
   this.dateS.changeSelectedYear(this.selectedYear);
 }
 
