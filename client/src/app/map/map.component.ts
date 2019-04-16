@@ -14,6 +14,7 @@ export class MapComponent implements OnInit {
 constructor(private dateS: DateService) { }
 
 ngOnInit() { 
+  //subscribe to the service data
   this.dateS.currentYear.subscribe(selectedYear => this.selectedYear = selectedYear)
   this.dateS.currentImage.subscribe(mapImage => this.mapImage  = mapImage )
 }

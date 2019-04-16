@@ -14,6 +14,7 @@ import { TimelineComponent } from './timeline/timeline.component';
 import { TranslationComponent } from './translation/translation.component';
 import 'hammerjs';
 import {DateService} from './services/date.service';
+import { Ng5SliderModule } from 'ng5-slider';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import {DateService} from './services/date.service';
     MatCardModule,
     MatSliderModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    Ng5SliderModule
   ],
   providers: [DateService],
   bootstrap: [AppComponent]

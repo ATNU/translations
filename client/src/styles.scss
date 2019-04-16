@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 html, body { 
     height: 100%;
@@ -10,29 +10,68 @@ body {
 }
 
 app-map {
-    display: block;
     width: 70%;
 }
 
 app-translation {
-    display: block;
     width: 30%;
 }
 
-.sliderStyle{
-    width: 50%;
+app-timeline {
+    width: 100%;
 }
-.sliderStyle{
-    .mat-slider-thumb {
-        background-color: #b0bec5;
-        border-radius: 0%;
-        width:2px;
-    }
-    .mat-slider-track-background {
-        background-color: #d1d9dd;
-    }
-    .mat-slider-track-fill {
-        background-color: #d1d9dd;
-    }
+
+
+//ng5-slider
+
+.custom-slider{
+    margin-bottom: 25px;
 }
+
+//the bar itself
+.custom-slider .ng5-slider .ng5-slider-bar {
+    background: grey;
+    height: 2px;
+  }
+
+  //pointer
+  .custom-slider .ng5-slider .ng5-slider-selection {
+    background: black;
+  }
+
+  .custom-slider .ng5-slider .ng5-slider-pointer {
+    width: 8px;
+    height: 16px;
+    top: auto; /* to remove the default positioning */
+    bottom: 0;
+    background-color: black;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+  }
+
+  //hide pointer shadow
+  .custom-slider .ng5-slider .ng5-slider-pointer:after {
+    display: none;
+  }
+
+  .custom-slider .ng5-slider .ng5-slider-bubble {
+    bottom: 14px;
+  }
+
+  //tick marks
+  .custom-slider .ng5-slider .ng5-slider-tick, .ng5-slider-ticks {
+    width: 1px;
+    height: 10px;
+    margin-left: 4px;
+    border-radius: 0;
+    background: purple;
+    top: -1px;
+  }
+
+  .custom-slider .ng5-slider .ng5-slider-tick.ng5-slider-selected {
+    background: grey;
+  }
+
+
+
 
