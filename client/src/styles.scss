@@ -2,23 +2,24 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 html, body { 
-    height: 100%;
-    padding: 15px;
+  box-sizing: border-box;
+  height: 100%;
+  margin: 0;
 }
 body {
     margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-app-map {
-    width: 70%;
+.test {
+    width: 40%;
+    float: left;
+    padding-left: 10px;
 }
 
-app-translation {
-    width: 30%;
-}
-
-app-timeline {
-    width: 100%;
+.test-right {
+  width: 50%;
+  float: right;
+  padding-right: 10px;
 }
 
 

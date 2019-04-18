@@ -34,7 +34,7 @@ constructor(private dateS: DateService) { }
 ngOnInit() { 
   this.dateS.currentYear.subscribe(selectedYear => this.selectedYear = selectedYear)
   this.selectedYear = 1829;
-  this.labelYears = [1789, 1795, 1804, 1812, 1820, 1830, 1839, 1848, 1861, 1871, 1885, 1911, 1921, 1929];
+  this.labelYears = [1789, 1804, 1820, 1839, 1861, 1885, 1911, 1929];
 }
 
 //unused currently
@@ -52,7 +52,6 @@ sendValue(){
 playTimeline() {
   //function to auto increment the selected year and reflect on the page until it reaches the end of the timeline
   console.log("play");
-  //probably calling send value in a loop on a time delay?
   
   
 }
