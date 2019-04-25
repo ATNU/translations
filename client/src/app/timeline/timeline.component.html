@@ -6,13 +6,18 @@
     <div class="custom-slider">
       <ng5-slider [(value)]="selectedYear" [options]="options" (valueChange)="sendValue()" ></ng5-slider>
     </div>
+    <p>{{selectedYear}}</p>
     <div class="slider-buttons">
-      <button mat-icon-button (click)="playTimeline()"> <!--not yet functional-->
+      <button mat-icon-button (click)="playTimeline()"> 
         <mat-icon>play_circle_outline</mat-icon>
       </button>
 
-      <button mat-icon-button (click)="pauseTimeline()"> <!--not yet functional-->
+      <button mat-icon-button (click)="pauseTimeline()"> 
         <mat-icon>pause_circle_outline</mat-icon>
+      </button>
+
+      <button mat-icon-button (click)="refreshTimeline()"> <!--not yet functional-->
+        <mat-icon>replay</mat-icon>
       </button>
     </div>
     

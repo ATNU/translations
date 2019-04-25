@@ -15,7 +15,9 @@ export class TimelineComponent implements OnInit {
 
   labelYears: number[];
 
+  pauseLoop : boolean;
 
+  //options for the timeline 
   options: Options = {
     floor: 1789,
     ceil: 1929,
@@ -29,19 +31,18 @@ export class TimelineComponent implements OnInit {
     
   };
 
-  constructor(private dateS: DateService) { }
+  constructor(private dateS: DateService) { 
+    
+  }
 
   ngOnInit() { 
     this.dateS.currentYear.subscribe(selectedYear => this.selectedYear = selectedYear)
-    this.selectedYear = 1829;
     this.labelYears = [1789, 1804, 1820, 1839, 1861, 1885, 1911, 1929]; //these are the years that show noted below the timeline, cut down from full list for visibility
+    //using self as this so that the context remains the same in the async function loop, otherwise loop cannot access the variable pauseLoop, pauseLoop is also declared on the window in lib.dom.ts
+    var self = this;
+    self.pauseLoop = false;
   }
 
-  //unused currently
-  sliderChange(value : number){
-    console.log('sending over year to the service' + this.selectedYear);
-    this.dateS.changeSelectedYear(this.selectedYear);
-  }
 
   //action on timeline change
   sendValue(){
@@ -49,26 +50,27 @@ export class TimelineComponent implements OnInit {
     this.dateS.changeSelectedYear(this.selectedYear);
   }
 
-
-
+  refreshTimeline(){
+    console.log('refresh');
+    this.selectedYear = 1789;
+    this.dateS.changeSelectedYear(this.selectedYear);
+    console.log('selected year' + this.selectedYear);
+  }
 
   pauseTimeline() {
     //function to pause the play timeline function
     console.log("pause");
-
-  }
-
-  trythis(updateNo : number){
-    console.log('called trythis' + updateNo);
-    this.selectedYear = updateNo;
+    self.pauseLoop = true;
   }
 
 
+  //enhance this by having play resume rather than play from beginning each time.
 
   playTimeline() {
-    const delay = (amount: number, test : number) => {
-      this.selectedYear = test;
-      this.sendValue();
+    self.pauseLoop = false;
+    const delay = (amount: number, updateNo : number) => {
+      this.selectedYear = updateNo;
+      this.dateS.changeSelectedYear(this.selectedYear);
       return new Promise((resolve) => {
         setTimeout(resolve, amount);
       });
@@ -76,14 +78,18 @@ export class TimelineComponent implements OnInit {
 
     
 
-    async function loop() {
-      for (let i = 1789; i <= 1850; i++) {
+    async function loop(startYear : number) {
+      for (let i = startYear; i <= 1929; i++) {
+        if(self.pauseLoop == true){
+          break;
+        }
         console.log(i);
         await delay(300, i);
       }
     }
     
-    loop();
+    loop(this.selectedYear);
+    
   }
 
 }

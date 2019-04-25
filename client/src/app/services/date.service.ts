@@ -23,6 +23,7 @@ export class DateService {
 
     //check if the year exists as an image, cheating, really should be checking the files for existing image
     if (this.existingYears.includes(selectedYear)){
+      console.log('image found');
       this.imageSource.next("assets/borders/" + selectedYear + ".svg");
     } else{
       console.log("not in array");
