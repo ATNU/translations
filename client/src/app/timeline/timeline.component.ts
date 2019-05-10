@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DateService } from '../services/date.service';
+import { TranslationDataService } from '../services/translationData.service';
 import { interval } from 'rxjs';
-import {observable } from 'rxjs';
+import { observable } from 'rxjs';
 import { Options } from 'ng5-slider';
 
 @Component({
@@ -21,9 +22,8 @@ export class TimelineComponent implements OnInit {
   options: Options = {
     floor: 1789,
     ceil: 1929,
-    ticksArray: this.dateS.existingYears, //existingYears is a list of all years which have associated images, ticks will show for these years
+    ticksArray: this.dateService.existingYears, //existingYears is a list of all years which have associated images, ticks will show for these years
     getLegend: (value: number): string => {
-      //put a if statement in here to check if value exists then show legend
       if(this.labelYears.includes(value)){
         return value.toString();
       }
@@ -31,12 +31,15 @@ export class TimelineComponent implements OnInit {
     
   };
 
-  constructor(private dateS: DateService) { 
+  constructor(
+      private dateService: DateService,
+      private translationService: TranslationDataService
+    ) { 
     
   }
 
   ngOnInit() { 
-    this.dateS.currentYear.subscribe(selectedYear => this.selectedYear = selectedYear)
+    this.dateService.currentYear.subscribe(selectedYear => this.selectedYear = selectedYear)
     this.labelYears = [1789, 1804, 1820, 1839, 1861, 1885, 1911, 1929]; //these are the years that show noted below the timeline, cut down from full list for visibility
     //using self as this so that the context remains the same in the async function loop, otherwise loop cannot access the variable pauseLoop, pauseLoop is also declared on the window in lib.dom.ts
     var self = this;
@@ -47,13 +50,14 @@ export class TimelineComponent implements OnInit {
   //action on timeline change
   sendValue(){
     console.log('sending over year to the service ' + this.selectedYear);
-    this.dateS.changeSelectedYear(this.selectedYear);
+    this.dateService.changeSelectedYear(this.selectedYear);
+    this.translationService.getTranslationData(this.selectedYear);
   }
 
   refreshTimeline(){
     console.log('refresh');
     this.selectedYear = 1789;
-    this.dateS.changeSelectedYear(this.selectedYear);
+    this.dateService.changeSelectedYear(this.selectedYear);
     console.log('selected year' + this.selectedYear);
   }
 
@@ -70,7 +74,7 @@ export class TimelineComponent implements OnInit {
     self.pauseLoop = false;
     const delay = (amount: number, updateNo : number) => {
       this.selectedYear = updateNo;
-      this.dateS.changeSelectedYear(this.selectedYear);
+      this.dateService.changeSelectedYear(this.selectedYear);
       return new Promise((resolve) => {
         setTimeout(resolve, amount);
       });

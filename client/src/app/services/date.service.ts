@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-
+import { HttpClientModule} from '@angular/common/http';
 @Injectable()
 
 export class DateService {
@@ -13,7 +13,7 @@ export class DateService {
 
   public existingYears : number[] = [1789, 1793, 1795, 1804, 1812, 1820, 1830, 1839, 1848, 1861, 1867, 1871, 1878, 1881, 1885, 1908, 1911, 1913, 1921, 1923, 1929 ];
 
-  constructor() {
+  constructor( private httpC : HttpClientModule) {
   }
 
   changeSelectedYear(selectedYear: number){
@@ -27,11 +27,9 @@ export class DateService {
       this.imageSource.next("assets/borders/" + selectedYear + ".svg");
     } else{
       console.log("not in array");
-      //here it needs to find the image of the closest year, possibly need to put the whole thing in a loop
-      // then -1 from selected year until we find a match?
+      //use previous year if no year available, this means it'll need to check as the user might be dragging backwards 
     
     }
-    
-
   }
+
 }
