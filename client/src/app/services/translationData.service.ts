@@ -16,7 +16,7 @@ export class TranslationDataService {
   private locationsSource = new BehaviorSubject<Array<LocationModel>>([]);
   selectedLocations = this.locationsSource.asObservable();
 
-  // temp list of locations, this will be popluated from DB with all known location co-ords
+  // temp list of locations, TODO: this will be popluated from DB with all known location co-ords from spreadsheet
   allLocationCoOrds: LocationModel[];
 
   // to build the list 
@@ -47,7 +47,7 @@ export class TranslationDataService {
     console.log('calling getTranslationData');
     //currently test data
     //get translation data from server
-    //loop through that data and call getLocationCoOrds for each entry
+    // really this will loop through that data and call getLocationCoOrds for each entry
     if(selectedYear == 1789){
       this.getLocationCoOrdinates('Paris');
     } else if(selectedYear == 1929){
@@ -55,8 +55,8 @@ export class TranslationDataService {
     } else {
       this.getLocationCoOrdinates('London');
     }
-
-    //once tjhe co ordinates for all locations in translation data have been fetched, then pass them to the observable
+    //might need a callback if this doesn't wait
+    //once the co ordinates for all locations in translation data have been fetched, then pass them to the observable
     this.locationsSource.next(this.coOrdListforYear);
 
   }
@@ -102,11 +102,11 @@ export class TranslationDataService {
             longitude: this.returnedData.lon
           }
         )
-        //save the new co ordinates to the database
+        //TODO: save the new co ordinates to the database
     }
 
   }
 
-  //pass the co-ordinates into an obervable object for the map component to view
+  //TODO: pass the co-ordinates into an obervable object for the map component to view
   
 }
