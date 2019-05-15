@@ -1,12 +1,12 @@
 
 
 //this might not be needed as we aren't generating data, only passing it to view
-export class Translation {
+export class TranslationModel {
     type: string;
-    originalTextId: number;
     originalTitle: string;
+   /* originalTextId: number;
     originalAuthor: string;
     details: string;
-    location: string;
+    location: string;*/
     year: number;
 }

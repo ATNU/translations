@@ -3,6 +3,16 @@
     Translation Data {{selectedYear}}
   </H4>
   <p>
-    Some year based data will go here
   </p>
+  <table>
+    <thead>
+        <th>Name</th>
+        <th>Index</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let translation of translationDataList">
+            <td>{{translation.year}}</td>
+        </tr>
+    </tbody>
+</table>
 </div>

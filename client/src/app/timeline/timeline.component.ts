@@ -34,16 +34,17 @@ export class TimelineComponent implements OnInit {
   constructor(
       private dateService: DateService,
       private translationService: TranslationDataService
+      
     ) { 
-    
+      var self = this;
+      self.pauseLoop = false;
   }
 
   ngOnInit() { 
     this.dateService.currentYear.subscribe(selectedYear => this.selectedYear = selectedYear)
     this.labelYears = [1789, 1804, 1820, 1839, 1861, 1885, 1911, 1929]; //these are the years that show noted below the timeline, cut down from full list for visibility
     //using self as this so that the context remains the same in the async function loop, otherwise loop cannot access the variable pauseLoop, pauseLoop is also declared on the window in lib.dom.ts
-    var self = this;
-    self.pauseLoop = false;
+    
   }
 
 
