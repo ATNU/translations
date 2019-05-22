@@ -13,8 +13,9 @@ declare let L;
 export class MapComponent implements OnInit {
 
   selectedYear: number;
-  mapImage: string;
+ // mapImage: string;
   locationsList: LocationModel[];
+  mymap: any;
 
 constructor(
   private dateService: DateService,
@@ -24,15 +25,34 @@ constructor(
 
 ngOnInit() {
   // subscribe to the service data
-  this.translationService.selectedLocations.subscribe(locationsList => this.locationsList = locationsList);
+  this.translationService.selectedLocations.subscribe(locationsList => {
+    this.locationsList = locationsList;
+    this.addMapMarkers();
+  });
   this.dateService.currentYear.subscribe(selectedYear => this.selectedYear = selectedYear);
-  this.dateService.currentImage.subscribe(mapImage => this.mapImage  = mapImage);
+  // this.dateService.currentImage.subscribe(mapImage => this.mapImage  = mapImage);
 
-  const mymap = L.map('mapid').setView([51.16, 10.45], 4);
+  this.mymap = L.map('mapid').setView([51.16, 10.45], 4);
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(mymap);
+        }).addTo(this.mymap);
 }
 
+addMapMarkers() {
+  // add markers
+  console.log(this.locationsList);
+
+  for (let locationEntry of this.locationsList) {
+    console.log('location entry loop');
+  /*  L.marker([locationEntry.lattitude, locationEntry.longitude], {
+      icon: new L.DivIcon({
+          className: 'my-div-icon',
+          html: '<span class="my-map-label">' + locationEntry.location + '</span>'
+        })
+    }).addTo(this.mymap);*/
+
+    L.marker([locationEntry.lattitude, locationEntry.longitude]).addTo(this.mymap).bindPopup(locationEntry.location);
+}
+}
 }
