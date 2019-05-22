@@ -1,18 +1,33 @@
-<div class='right-side-panel'>
-  <H4>
-    Translation Data {{selectedYear}}
-  </H4>
-  <p>
-  </p>
-  <table>
-    <thead>
-        <th>Name</th>
-        <th>Index</th>
-    </thead>
-    <tbody>
-        <tr *ngFor="let translation of translationDataList">
-            <td>{{translation.year}}</td>
-        </tr>
-    </tbody>
-</table>
-</div>
+
+    <mat-card>
+        <mat-card-content>
+          <H4>
+            Translation Data {{selectedYear}}
+          </H4>
+          <p>
+          </p>
+          <table>
+            <thead>
+                <th>Type</th>
+                <th>Original Text Title</th>
+                <th>Author</th>
+                <th>Details</th>
+                <th>City</th>
+                <th>Year</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let translation of translationDataList">
+                    <td>{{translation.type}}</td>
+                    <td>{{translation.originalTitle}}</td>
+                    <td>{{translation.originalAuthor}}</td>
+                    <td>{{translation.details}}</td>
+                    <td>{{translation.city}}</td>
+                    <td>{{translation.year}}</td>
+                    
+                </tr>
+            </tbody>
+        </table>
+        </mat-card-content>
+        </mat-card>
+
+
