@@ -16,6 +16,7 @@ export class MapComponent implements OnInit {
  // mapImage: string;
   locationsList: LocationModel[];
   mymap: any;
+  markers: any;
 
 constructor(
   private dateService: DateService,
@@ -24,6 +25,8 @@ constructor(
 )  { }
 
 ngOnInit() {
+  this.markers = L.markerClusterGroup();
+
   // subscribe to the service data
   this.translationService.selectedLocations.subscribe(locationsList => {
     this.locationsList = locationsList;
@@ -39,20 +42,18 @@ ngOnInit() {
         }).addTo(this.mymap);
 }
 
-addMapMarkers() {
-  // add markers
-  console.log(this.locationsList);
+  addMapMarkers() {
+    this.markers.clearLayers();
 
-  for (let locationEntry of this.locationsList) {
-    console.log('location entry loop');
-  /*  L.marker([locationEntry.lattitude, locationEntry.longitude], {
-      icon: new L.DivIcon({
-          className: 'my-div-icon',
-          html: '<span class="my-map-label">' + locationEntry.location + '</span>'
-        })
-    }).addTo(this.mymap);*/
+    if (this.locationsList.length > 0) {
 
-    L.marker([locationEntry.lattitude, locationEntry.longitude]).addTo(this.mymap).bindPopup(locationEntry.location);
-}
-}
+      for (let locationEntry of this.locationsList) {
+        console.log('location entry loop');
+        let marker = L.marker([locationEntry.lattitude, locationEntry.longitude]);
+        this.markers.addLayer(marker);
+      }
+      this.mymap.addLayer(this.markers);
+
+    }
+  }
 }
