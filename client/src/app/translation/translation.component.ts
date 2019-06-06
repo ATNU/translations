@@ -19,7 +19,7 @@ export class TranslationComponent implements OnInit {
 
   )  { }
 
-  displayedColumns: string[] = ['type', 'originalTitle', 'originalAuthor', 'details', 'city'];
+  displayedColumns: string[] = ['type', 'originalTitle', 'originalAuthor', 'details', 'city', 'year'];
 
 
   ngOnInit() {
