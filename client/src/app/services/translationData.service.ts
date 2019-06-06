@@ -32,7 +32,7 @@ export class TranslationDataService {
   constructor( private http: HttpClient ) { 
 
     this.http.get('http://localhost:3000/cities', {observe:'response'}).subscribe( res => { 
-    console.log(res);
+
         this.allLocationCoOrds = res.body;
         })
     this.coOrdListforYear = [];
@@ -42,9 +42,9 @@ export class TranslationDataService {
   getTranslationData(selectedYear: number){
     this.translationsListforYear = [];
     //use the year to pull the translation data from server
-    console.log('gettranslationdata');
+
     this.http.get('http://localhost:3000/texts/'+ selectedYear, {observe:'response'}).subscribe( res => { 
-      console.log(res);
+
       this.translationDataResponse = res.body;
 
       if(this.translationDataResponse != null){
@@ -60,8 +60,7 @@ export class TranslationDataService {
   getLocationCoOrdinates(){
     this.coOrdListforYear = [];
     for(let translationItem of this.translationDataResponse){
-      console.log('translation item ')
-      console.log(translationItem)
+
       this.translationsListforYear.push(
         {
           type: translationItem.type,
@@ -76,7 +75,6 @@ export class TranslationDataService {
       )
 
 
-      console.log('calling get location coordingates' + translationItem.city);
           
       let placeFound = false;
 
@@ -86,8 +84,7 @@ export class TranslationDataService {
           if (translationItem.city == locationEntry.city){
             // place has co ordinates listed, add those co ords to map list
             placeFound = true;
-            console.log('its in the list' + locationEntry.city);
-            console.log(locationEntry.city, + locationEntry.latitude + locationEntry.longitude)
+
             this.coOrdListforYear.push(
               {
                 location: locationEntry.city,
@@ -120,10 +117,8 @@ export class TranslationDataService {
 
     }
     //outside of for loop
-    console.log('co ords list for year');
-    console.log(this.coOrdListforYear);
-    console.log(this.coOrdListforYear.length);
-    console.log(this.translationsListforYear.length);
+
+
     //put values into observables to be picked up in front end
     this.locationsSource.next(this.coOrdListforYear);
     this.translationsSource.next(this.translationsListforYear);

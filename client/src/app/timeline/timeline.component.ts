@@ -34,8 +34,7 @@ export class TimelineComponent implements OnInit {
       private translationService: TranslationDataService
 
     ) {
-      const self = this;
-      self.pauseLoop = false;
+
   }
 
   ngOnInit() {
@@ -65,7 +64,7 @@ export class TimelineComponent implements OnInit {
   pauseTimeline() {
     // function to pause the play timeline function
     console.log('pause');
-  //  self.pauseLoop = true;
+
   }
 
 
@@ -83,17 +82,17 @@ export class TimelineComponent implements OnInit {
 
 
     // still need to get this right
-    async function loop(startYear: number) {
+    async function timeLoop(startYear: number) {
       for (let i = startYear; i <= 1929; i++) {
         /*if (self.pauseLoop == true) {
           break;
         }
         console.log(i);*/
-        await delay(2000, i);
+        await delay(5000, i);
       }
     }
 
-    loop(this.selectedYear);
+    timeLoop(this.selectedYear);
 
   }
 
