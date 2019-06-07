@@ -96,5 +96,11 @@ export class TimelineComponent implements OnInit {
 
   }
 
+
+  showAllData() {
+    this.translationService.getAllTranslationData();
+
+  }
+
 }
 

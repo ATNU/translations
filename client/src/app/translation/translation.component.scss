@@ -1,3 +1,20 @@
 .right-side-panel{
     padding-left: 2em;
 }
+
+
+
+
+.mat-table {
+    display: table;
+  
+    > .mat-header-row, > .mat-row {
+      display: table-row;
+  
+      > .mat-header-cell, > .mat-cell {
+        display: table-cell;
+        height: 48px;
+        vertical-align: middle;
+      }
+    }
+  }
