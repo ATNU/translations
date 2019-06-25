@@ -16,6 +16,8 @@ export class TimelineComponent implements OnInit {
 
   pauseLoop: boolean;
 
+  disableTimeline: boolean;
+
   // Options for the timeline
   options: Options = {
     floor: 1789,
@@ -40,6 +42,7 @@ export class TimelineComponent implements OnInit {
   ngOnInit() {
     this.dateService.currentYear.subscribe(selectedYear => this.selectedYear = selectedYear);
     this.labelYears = [1789, 1804, 1820, 1839, 1861, 1885, 1911, 1929];
+    this.disableTimeline = false;
     /* these are the years that show noted below the timeline, cut down from full list for visibility
     using self as this so that the context remains the same in the async function loop, otherwise loop cannot access the variable pauseLoop,
     pauseLoop is also declared on the window in lib.dom.ts */
@@ -49,6 +52,7 @@ export class TimelineComponent implements OnInit {
 
   // action on timeline change
   sendValue() {
+    this.disableTimeline = false;
     console.log('sending over year to the service ' + this.selectedYear);
     this.dateService.changeSelectedYear(this.selectedYear);
     this.translationService.getTranslationData(this.selectedYear);
@@ -98,6 +102,7 @@ export class TimelineComponent implements OnInit {
 
 
   showAllData() {
+    this.disableTimeline = true;
     this.translationService.getAllTranslationData();
 
   }

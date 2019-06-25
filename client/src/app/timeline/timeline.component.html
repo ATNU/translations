@@ -1,10 +1,7 @@
 <mat-card>
   <mat-card-content>
-    <!-- comment out mat slider to test ng5-slider
-    <span class="text-small">1789 </span><mat-slider class="sliderStyle" min="1789" max="1929" step="1" tickInterval="10" [(ngModel)]="selectedYear" (ngModelChange)="sendValue()" ></mat-slider><span class="text-small"> 1929</span>
-    -->
     <div class="custom-slider">
-      <ng5-slider [(value)]="selectedYear" [options]="options" (valueChange)="sendValue()" ></ng5-slider>
+      <ng5-slider [(value)]="selectedYear" [options]="options" (valueChange)="sendValue()" [ngClass]="{'timeline-disabled': disableTimeline}"></ng5-slider>
     </div>
     <p>{{selectedYear}}</p>
     <div class="slider-buttons">

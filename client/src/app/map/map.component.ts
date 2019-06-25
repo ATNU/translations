@@ -21,6 +21,7 @@ export class MapComponent implements OnInit {
   overlays: any;
   imageBounds: number[][];
   histMapON: boolean;
+  iconSize: number[];
 
   constructor(
     private dateService: DateService,
@@ -33,6 +34,7 @@ export class MapComponent implements OnInit {
     this.imageBounds = [[24.6873, -24.4149 ], [71.69171, 53.00962]];
     this.histMapON = true;
     this.mymap = L.map('mapid').setView([51.16, 10.45], 4);
+    this.iconSize = [25, 25];
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -49,18 +51,60 @@ export class MapComponent implements OnInit {
   }
 
   addMapMarkers() {
-    console.log(this.selectedYear);
-    console.log(this.mapImage);
+
+    var evidenceIcon = L.icon({
+      iconUrl: '../assets/mapicons/lettericons/E.png',
+      iconSize: this.iconSize
+  });
+  var translationIcon = L.icon({
+    iconUrl: '../assets/mapicons/lettericons/T.png',
+    iconSize: this.iconSize
+});
+var adaptationIcon = L.icon({
+  iconUrl: '../assets/mapicons/lettericons/A.png',
+  iconSize: this.iconSize
+});var mentionIcon = L.icon({
+  iconUrl: '../assets/mapicons/lettericons/M.png',
+  iconSize: this.iconSize
+});
+var originalIcon = L.icon({
+  iconUrl: '../assets/mapicons/lettericons/O.png',
+  iconSize: this.iconSize
+});
+
+var reviewIcon = L.icon({
+  iconUrl: '../assets/mapicons/lettericons/R.png',
+  iconSize: this.iconSize
+});
+
     this.markers.clearLayers();
 
     if (this.locationsList.length > 0) {
       for (let locationEntry of this.locationsList) {
-        let marker = L.marker([locationEntry.lattitude, locationEntry.longitude]);
+        let marker = L.marker;
+        console.log(locationEntry);
+        console.log(locationEntry.type);
+        if (locationEntry.type === 'Translation') {
+          marker = L.marker([locationEntry.lattitude, locationEntry.longitude], {icon : translationIcon  });
+        } else if (locationEntry.type === 'Mention') {
+          marker = L.marker([locationEntry.lattitude, locationEntry.longitude], {icon : mentionIcon  });
+        } else if (locationEntry.type === 'Reviews and articles') {
+          marker = L.marker([locationEntry.lattitude, locationEntry.longitude], {icon : reviewIcon  });
+        } else if (locationEntry.type === 'Adaptation') {
+          marker = L.marker([locationEntry.lattitude, locationEntry.longitude], {icon : adaptationIcon  });
+        } else if (locationEntry.type === 'Original text') {
+          marker = L.marker([locationEntry.lattitude, locationEntry.longitude], {icon : originalIcon  });
+        } else if (locationEntry.type === 'Evidence of reading') {
+          marker = L.marker([locationEntry.lattitude, locationEntry.longitude], {icon : evidenceIcon  });
+        } else {
+          marker = L.marker([locationEntry.lattitude, locationEntry.longitude]);
+        }
+
         this.markers.addLayer(marker);
       }
       this.mymap.addLayer(this.markers);
     }
-    if(this.histMapON === true){
+    if (this.histMapON === true) {
       this.addMap();
     }
   }

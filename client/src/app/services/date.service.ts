@@ -8,7 +8,7 @@ export class DateService {
   private yearSource = new BehaviorSubject<number>(1929);
   currentYear = this.yearSource.asObservable();
 
-  private imageSource = new BehaviorSubject<string>('assets/testmaps/1929.tif');
+  private imageSource = new BehaviorSubject<string>('assets/newmaps/1929_modified.tif');
   currentImage = this.imageSource.asObservable();
 
   public existingYears: number[] = [
@@ -24,7 +24,7 @@ export class DateService {
     // check if the year exists as an image, cheating, really should be checking the files for existing image
     if (this.existingYears.includes(selectedYear)) {
 
-      this.imageSource.next('assets/testmaps/' + selectedYear + '.tif');
+      this.imageSource.next('assets/newmaps/' + selectedYear + '_modified.tif');
     } else {
       // use previous year if no map available
       let prevMapFound = false;
@@ -34,7 +34,7 @@ export class DateService {
 
         findLastYearWithMap--;
         if (this.existingYears.includes(findLastYearWithMap)) {
-          this.imageSource.next('assets/testmaps/' + findLastYearWithMap + '.tif');
+          this.imageSource.next('assets/newmaps/' + findLastYearWithMap + '_modified.tif');
           prevMapFound = true;
 
         }

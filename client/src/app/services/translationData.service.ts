@@ -94,7 +94,8 @@ export class TranslationDataService {
             this.coOrdListforYear.push({
               location: locationEntry.city,
               lattitude: locationEntry.latitude,
-              longitude: locationEntry.longitude
+              longitude: locationEntry.longitude,
+              type: translationItem.type
             });
           }
 
