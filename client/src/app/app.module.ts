@@ -1,11 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ViewChild } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTableModule } from '@angular/material/table';
+import { MatFormFieldModule, MatInputModule } from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
@@ -16,6 +17,8 @@ import { TranslationDataService } from './services/translationData.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Ng5SliderModule } from 'ng5-slider';
 import 'hammerjs';
+import { MatSortModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,11 @@ import 'hammerjs';
     MatIconModule,
     Ng5SliderModule,
     MatSlideToggleModule,
-    MatTableModule
+    MatTableModule,
+    MatSortModule,
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [DateService, TranslationDataService],
   bootstrap: [AppComponent]
