@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { DateService } from '../services/date.service';
 import { TranslationDataService } from '../services/translationData.service';
 import { TranslationModel } from '../models/translation.model';
@@ -10,7 +10,7 @@ import {MatTableDataSource, MatSort, MatInputModule} from '@angular/material';
   templateUrl: './translation.component.html',
   styleUrls: ['./translation.component.scss']
 })
-export class TranslationComponent implements OnInit {
+export class TranslationComponent implements OnInit, AfterViewInit {
 
   selectedYear: number;
   translationDataList: TranslationModel[];
@@ -34,7 +34,7 @@ export class TranslationComponent implements OnInit {
 
   }
 
-  ngAfterViewInit (){
+  ngAfterViewInit() {
     this.dataSource.sort = this.sort;
   }
 
