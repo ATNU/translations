@@ -14,15 +14,15 @@ export class TimelineComponent implements OnInit {
 
   labelYears: number[];
 
-  pauseLoop: boolean;
-
   disableTimeline: boolean;
+
+  timelinePaused: boolean;
 
   // Options for the timeline
   options: Options = {
     floor: 1789,
     ceil: 1929,
-    ticksArray: this.dateService.existingYears, // years which have associated images, ticks will show for these years
+    ticksArray: this.dateService.mapTicks,
     getLegend: (value: number): string => {
       if (this.labelYears.includes(value)) {
         return value.toString();
@@ -34,48 +34,43 @@ export class TimelineComponent implements OnInit {
   constructor(
       private dateService: DateService,
       private translationService: TranslationDataService
-
     ) {
-
   }
 
   ngOnInit() {
     this.dateService.currentYear.subscribe(selectedYear => this.selectedYear = selectedYear);
-    this.labelYears = [1789, 1804, 1820, 1839, 1861, 1885, 1911, 1929];
+    this.dateService.isPaused.subscribe(timelinePaused => this.timelinePaused = timelinePaused);
+    this.labelYears = this.dateService.mapLegend;
+    /* these are the years that show noted below the timeline, cut down from full list for visibility,
+    the year must also have an associated tick in the ticksarray */
     this.disableTimeline = false;
-    /* these are the years that show noted below the timeline, cut down from full list for visibility
-    using self as this so that the context remains the same in the async function loop, otherwise loop cannot access the variable pauseLoop,
-    pauseLoop is also declared on the window in lib.dom.ts */
-
   }
 
-
-  // action on timeline change
-  sendValue() {
+  clickTimeline() {
     this.disableTimeline = false;
-    console.log('sending over year to the service ' + this.selectedYear);
+    this.pauseTimeline();
+    this.sendValue();
+  }
+
+  sendValue() {
     this.dateService.changeSelectedYear(this.selectedYear);
     this.translationService.getTranslationData(this.selectedYear);
   }
 
   refreshTimeline() {
-    console.log('refresh');
+    this.pauseTimeline();
     this.selectedYear = 1789;
     this.dateService.changeSelectedYear(this.selectedYear);
-    console.log('selected year' + this.selectedYear);
+    this.sendValue();
   }
 
   pauseTimeline() {
-    // function to pause the play timeline function
-    console.log('pause');
-
+    this.dateService.pauseLoop(true);
   }
 
-
-  // enhance this by having play resume rather than play from beginning each time.
-
   playTimeline() {
-   // self.pauseLoop = false;
+    this.dateService.pauseLoop(false);
+
     const delay = (amount: number, updateNo: number) => {
       this.selectedYear = updateNo;
       this.sendValue();
@@ -84,15 +79,24 @@ export class TimelineComponent implements OnInit {
       });
     };
 
+    const checkPaused = () => {
+      if (this.timelinePaused === true) {
+        return true;
+      } else {
+        return false;
+      }
+    };
 
-    // still need to get this right
-    async function timeLoop(startYear: number) {
+   async function timeLoop(startYear: number) {
       for (let i = startYear; i <= 1929; i++) {
-        /*if (self.pauseLoop == true) {
+
+        const check = checkPaused();
+        if (check === false) {
+          await delay(5000, i);
+        } else {
           break;
         }
-        console.log(i);*/
-        await delay(5000, i);
+
       }
     }
 
@@ -100,11 +104,9 @@ export class TimelineComponent implements OnInit {
 
   }
 
-
   showAllData() {
     this.disableTimeline = true;
     this.translationService.getAllTranslationData();
-
   }
 
 }

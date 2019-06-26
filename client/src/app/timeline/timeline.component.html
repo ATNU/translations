@@ -1,27 +1,25 @@
 <mat-card>
   <mat-card-content>
     <div class="custom-slider">
-      <ng5-slider [(value)]="selectedYear" [options]="options" (valueChange)="sendValue()" [ngClass]="{'timeline-disabled': disableTimeline}"></ng5-slider>
+      <ng5-slider [(value)]="selectedYear" [options]="options" (valueChange)="clickTimeline()" [ngClass]="{'timeline-disabled': disableTimeline}"></ng5-slider>
     </div>
-    <p>{{selectedYear}}</p>
     <div class="slider-buttons">
       <button mat-icon-button (click)="playTimeline()"> 
         <mat-icon>play_circle_outline</mat-icon>
       </button>
 
-      <button (click)="showAllData()"> 
-        View All Data
-      </button>
-
-     <!-- <button mat-icon-button (click)="pauseTimeline()"> 
+     <button mat-icon-button (click)="pauseTimeline()"> 
         <mat-icon>pause_circle_outline</mat-icon>
       </button>
 
       <button mat-icon-button (click)="refreshTimeline()"> 
         <mat-icon>replay</mat-icon>
-      </button> -->
+      </button>
+
+      <button (click)="showAllData()"> 
+          View All Data
+        </button>
     </div>
-    
   </mat-card-content>
 </mat-card>
 <br/>

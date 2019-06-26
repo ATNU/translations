@@ -4,17 +4,29 @@
 
 
 
+.translation_data_table{
+  width: 100%;
 
-.mat-table {
-    display: table;
-  
-    > .mat-header-row, > .mat-row {
-      display: table-row;
-  
-      > .mat-header-cell, > .mat-cell {
-        display: table-cell;
-        height: 48px;
-        vertical-align: middle;
-      }
+  thead{
+    text-align: left;
+    th {
+      padding-right: 10px;
+      background-color:rgb(200, 200, 200); 
     }
   }
+
+  tbody{
+    text-align: left;
+
+    td { 
+      padding-right: 10px;
+
+    }
+    
+  }
+
+}
+
+.odd{ background-color:  rgb(200, 200, 200); } 
+
+.even{ background-color: rgb(250, 250, 250); }

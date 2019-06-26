@@ -6,21 +6,20 @@
           <p>
           </p>
 <div style="height: 500px; overflow-y: auto">
-          <table c>
+          <table class="translation_data_table">
             <thead>
                 <th>Type</th>
                 <th>Original Text Title</th>
-                <th>Author</th>
-                <th>Details</th>
+                <th>Original Author</th>
                 <th>City</th>
                 <th>Year</th>
             </thead>
             <tbody>
-                <tr *ngFor="let translation of translationDataList">
+                <tr *ngFor="let translation of translationDataList; let o = odd; let e = even"
+                [ngClass]="{ odd: o, even: e }">
                     <td>{{translation.type}}</td>
                     <td>{{translation.originalTitle}}</td>
                     <td>{{translation.originalAuthor}}</td>
-                    <td>{{translation.details}}</td>
                     <td>{{translation.city}}</td>
                     <td>{{translation.year}}</td>
                     

@@ -57,6 +57,8 @@ export class TranslationDataService {
     this.http.get('http://localhost:3000/texts/' + selectedYear, {observe: 'response'}).subscribe( res => {
       this.translationDataResponse = res.body;
       if (this.translationDataResponse != null) {
+        console.log('translatopn data response');
+        console.log(this.translationDataResponse);
         this.getLocationCoOrdinates();
       }
 
