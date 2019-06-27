@@ -3,11 +3,13 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var bodyParser = require('body-parser');
 
 var textsRouter = require('./routes/texts');
 var allTextsRouter = require('./routes/allTexts');
 var citiesRouter = require('./routes/cities');
 var indexRouter = require('./routes/index');
+var locationsRouter = require('./routes/addLocation');
 
 var app = express();
 
@@ -17,6 +19,7 @@ app.set('view engine', 'pug');
 
 app.use(logger('dev'));
 app.use(express.json());
+app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -27,6 +30,7 @@ app.use('/', indexRouter);
 app.use('/texts', textsRouter);
 app.use('/cities', citiesRouter);
 app.use('/allTexts', allTextsRouter);
+app.use('/addLocation', locationsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
