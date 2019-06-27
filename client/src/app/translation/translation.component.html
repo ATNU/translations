@@ -8,9 +8,9 @@
 
 
         <div class="example-container" >
-         <!-- ***failed filter   <mat-form-field >
+            <mat-form-field >
                 <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
-              </mat-form-field>-->
+              </mat-form-field>
 
                 <mat-table #table [dataSource]="dataSource" matSort>
               
@@ -42,27 +42,7 @@
                   <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
                 </mat-table>
               </div>
-    <!--
-          <table class="translation_data_table">
-            <thead>
-                <th>Type</th>
-                <th>Original Text Title</th>
-                <th>Original Author</th>
-                <th>City</th>
-                <th>Year</th>
-            </thead>
-            <tbody>
-                <tr *ngFor="let translation of translationDataList; let o = odd; let e = even"
-                [ngClass]="{ odd: o, even: e }">
-                    <td>{{translation.type}}</td>
-                    <td>{{translation.originalTitle}}</td>
-                    <td>{{translation.originalAuthor}}</td>
-                    <td>{{translation.city}}</td>
-                    <td>{{translation.year}}</td>
-                    
-                </tr>
-            </tbody>
-        </table>-->
+
 
 
 

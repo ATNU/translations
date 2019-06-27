@@ -52,27 +52,28 @@ export class MapComponent implements OnInit {
 
   addMapMarkers() {
 
-    var evidenceIcon = L.icon({
+    const evidenceIcon = L.icon({
       iconUrl: '../assets/mapicons/lettericons/E.png',
       iconSize: this.iconSize
   });
-  var translationIcon = L.icon({
+  const translationIcon = L.icon({
     iconUrl: '../assets/mapicons/lettericons/T.png',
     iconSize: this.iconSize
 });
-var adaptationIcon = L.icon({
+const adaptationIcon = L.icon({
   iconUrl: '../assets/mapicons/lettericons/A.png',
   iconSize: this.iconSize
-});var mentionIcon = L.icon({
+});
+const mentionIcon = L.icon({
   iconUrl: '../assets/mapicons/lettericons/M.png',
   iconSize: this.iconSize
 });
-var originalIcon = L.icon({
+const originalIcon = L.icon({
   iconUrl: '../assets/mapicons/lettericons/O.png',
   iconSize: this.iconSize
 });
 
-var reviewIcon = L.icon({
+const reviewIcon = L.icon({
   iconUrl: '../assets/mapicons/lettericons/R.png',
   iconSize: this.iconSize
 });

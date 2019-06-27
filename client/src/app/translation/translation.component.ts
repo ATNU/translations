@@ -38,10 +38,12 @@ export class TranslationComponent implements OnInit, AfterViewInit {
     this.dataSource.sort = this.sort;
   }
 
-  /*
-  ***failed filter
+  // might need to add a delay onto this filter so it waits until the user is no longer typing
   public doFilter = (value: string) => {
     this.dataSource.filter = value.trim().toLocaleLowerCase();
-  }*/
+    this.translationDataList = this.dataSource.filteredData;
+    console.log(this.translationDataList);
+    this.translationService.filterTranslationData(this.dataSource.filteredData);
+  }
 
 }

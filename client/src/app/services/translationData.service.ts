@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { LocationModel } from '../models/location.model';
 import { TranslationModel } from '../models/translation.model';
@@ -23,6 +23,7 @@ export class TranslationDataService {
 */
   // temp list of locations
   allLocationCoOrds: any;
+  citiesToFind: string[];
 
   // temp list of translationData
   translationDataResponse: any;
@@ -31,12 +32,18 @@ export class TranslationDataService {
   locationIQReturnedData: any;
   coOrdListforYear: LocationModel[];
   translationsListforYear: TranslationModel[];
+
+  // to build filtered list 
+  coOrdListforFilter: LocationModel[];
+  translationsListforFilter: TranslationModel[];
+
  // translationsListAll: TranslationModel[];
 
   constructor( private http: HttpClient ) {
     this.http.get('http://localhost:3000/cities', {observe: 'response'}).subscribe( res => { this.allLocationCoOrds = res.body; });
     this.coOrdListforYear = [];
     this.translationsListforYear = [];
+    this.citiesToFind = [];
   }
 
   getAllTranslationData() {
@@ -66,25 +73,12 @@ export class TranslationDataService {
      // might need a callback if this doesn't wait
   }
 
-  getLocationCoOrdinates() {
-    this.coOrdListforYear = [];
-    for (let translationItem of this.translationDataResponse) {
+  filterTranslationData(filteredDataList: TranslationModel[]) {
+    this.translationsListforFilter = filteredDataList;
+    this.coOrdListforFilter = [];
 
-      this.translationsListforYear.push(
-        {
-          type: translationItem.type,
-          originalTitle: translationItem.originaltexttitle,
-          originalTextId: translationItem.originaltextid,
-          originalAuthor: translationItem.originaltextauthor,
-          details: translationItem.translationdetails,
-          city: translationItem.city,
-          location: translationItem.locationifnocity,
-          year: translationItem.year
-        }
-      );
-
-
-      let placeFound = false;
+    for (let translationItem of this.translationsListforFilter) {
+    let placeFound = false;
 
       // compare the string passed in to the list, if matches then pass lat and long to front end
       for (let locationEntry of this.allLocationCoOrds) {
@@ -93,7 +87,7 @@ export class TranslationDataService {
             // place has co ordinates listed, add those co ords to map list
             placeFound = true;
 
-            this.coOrdListforYear.push({
+            this.coOrdListforFilter.push({
               location: locationEntry.city,
               lattitude: locationEntry.latitude,
               longitude: locationEntry.longitude,
@@ -101,36 +95,97 @@ export class TranslationDataService {
             });
           }
 
-          /* commenting out as it's causing problems, moving on without waiting, perhaps just fetch and save
-          if(placeFound == false){ //need error handling in here if the co ords can\t be found
-            //get the coordinated from locationIQ
-            this.http.get('https://eu1.locationiq.com/v1/search.php?key=pk.46aa96826f71964d9322b1961e3dcbab&q=“'+
-            translationItem.city + '”&format=json', {observe:'response'}).subscribe( res => {
-              let response = res.body;
-              console.log('test returned');
-              console.log(res.body);
-              this.locationIQReturnedData = response[0];
-              this.coOrdListforYear.push({
-                  location: translationItem.city,
-                  lattitude: this.locationIQReturnedData.lat,
-                  longitude: this.locationIQReturnedData.lon
-              })
-            })
-
-
-              //TODO: save the new co ordinates to the database
-          }*/
         }
-
       }
-    // outside of for loop
-
-
     }
 
+    // only updating co ordinates, not the data list, as the dofilter does that for us
+    this.locationsSource.next(this.coOrdListforFilter);
+  }
+
+ //  getNewCityCoOrdinates = async () => {
+   getNewCityCoOrdinates(){
+     console.log('called get new cities');
+  //  for (let i = 0; i < 2; i++) {
+      if (this.citiesToFind[0]) {
+        let city = this.citiesToFind[0];
+        this.http.get('https://eu1.locationiq.com/v1/search.php?key=pk.46aa96826f71964d9322b1961e3dcbab&q=“' +
+        city + '”&format=json', {observe: 'response'}).subscribe( res => {
+          let response = res.body;
+          console.log('test returned');
+          console.log(res.body);
+
+          let latitude = response[0].lat;
+          let longitude = response[0].lon;
+
+          let newCity = {
+            latitude,
+            longitude,
+            city
+          };
+          console.log('sending to sheet');
+          this.http.post('http://localhost:3000/addLocation/', newCity, {observe: 'response', responseType: 'text'}).subscribe( res => {
+            console.log(res.body);
+          });
+
+        });
+      }
+  }
+
+  getLocationCoOrdinates() {
+    this.coOrdListforYear = [];
+    for (let translationItem of this.translationDataResponse) {
+
+    this.translationsListforYear.push(
+      {
+        type: translationItem.type,
+        originalTitle: translationItem.originaltexttitle,
+        originalTextId: translationItem.originaltextid,
+        originalAuthor: translationItem.originaltextauthor,
+        details: translationItem.translationdetails,
+        city: translationItem.city,
+        location: translationItem.locationifnocity,
+        year: translationItem.year
+      }
+    );
+
+
+      let placeFound = false;
+
+      // compare the string passed in to the list, if matches then pass lat and long to front end
+
+        if (translationItem.city != null && translationItem.city !== '') {
+          console.log(translationItem.city);
+
+          let cityCoOrds =  this.allLocationCoOrds.find(x => x.city == translationItem.city);
+
+          if (cityCoOrds != null) {
+            this.coOrdListforYear.push({
+              location: cityCoOrds.city,
+              lattitude: cityCoOrds.latitude,
+              longitude: cityCoOrds.longitude,
+              type: translationItem.type
+            });
+          } else {
+            console.log(translationItem.city + 'no co-ords found');
+            this.citiesToFind.push(translationItem.city);
+
+        }
+      }
+
+  }
     // put values into observables to be picked up in front end
     this.locationsSource.next(this.coOrdListforYear);
     this.translationsSource.next(this.translationsListforYear);
+console.log('cities to fine');
+console.log(this.citiesToFind);
+  if (this.citiesToFind.length > 0) {
+    console.log('get new cities');
+    this.getNewCityCoOrdinates();
   }
+
+
+}
+
 
 }
