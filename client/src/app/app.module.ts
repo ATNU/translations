@@ -12,12 +12,13 @@ import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
 import { TimelineComponent } from './timeline/timeline.component';
 import { TranslationComponent } from './translation/translation.component';
+import { DetailsModalComponent } from './details-modal/details-modal.component';
 import { DateService } from './services/date.service';
 import { TranslationDataService } from './services/translationData.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Ng5SliderModule } from 'ng5-slider';
 import 'hammerjs';
-import { MatSortModule } from '@angular/material';
+import { MatSortModule, MatDialogModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
@@ -25,7 +26,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppComponent,
     MapComponent,
     TimelineComponent,
-    TranslationComponent
+    TranslationComponent,
+    DetailsModalComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +43,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatSortModule,
     BrowserAnimationsModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatDialogModule
+  ],
+  entryComponents: [
+    DetailsModalComponent
   ],
   providers: [DateService, TranslationDataService],
   bootstrap: [AppComponent]

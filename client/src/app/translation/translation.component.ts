@@ -3,7 +3,8 @@ import { DateService } from '../services/date.service';
 import { TranslationDataService } from '../services/translationData.service';
 import { TranslationModel } from '../models/translation.model';
 import {MatTableDataSource, MatSort, MatInputModule} from '@angular/material';
-
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { DetailsModalComponent } from '../details-modal/details-modal.component';
 
 @Component({
   selector: 'app-translation',
@@ -17,11 +18,11 @@ export class TranslationComponent implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource<TranslationModel>();
   constructor(
     private dateService: DateService,
-    private translationService: TranslationDataService
-
+    private translationService: TranslationDataService,
+    private dialog: MatDialog
   )  { }
 
-  displayedColumns: string[] = ['type', 'originalTitle', 'originalAuthor', 'city'];
+  displayedColumns: string[] = ['type', 'originalTitle', 'originalAuthor', 'city', 'details'];
 
   @ViewChild(MatSort) sort: MatSort;
 
@@ -44,6 +45,21 @@ export class TranslationComponent implements OnInit, AfterViewInit {
     this.translationDataList = this.dataSource.filteredData;
     console.log(this.translationDataList);
     this.translationService.filterTranslationData(this.dataSource.filteredData);
+  }
+
+
+  openDetailsModal(translationItem: TranslationModel) {
+    //const messageText = translationItem.originalAuthor + ' ' + translationItem.originalTitle + ' ' + translationItem.type + ' ' 
+    //+ translationItem.details + ' ' + translationItem.city +  ' ' + translationItem.year;
+    const messageItem = translationItem;
+    const dialogRef = this.dialog.open(DetailsModalComponent, {
+      data: {
+        message: messageItem,
+        buttonText: {
+          cancel: 'Done'
+        }
+      },
+    });
   }
 
 }
