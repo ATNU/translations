@@ -35,6 +35,7 @@ router.get('/:year', function (req, res) {
 
             //Filter rows by year
             const filtered = filterByYear(year, rows);
+            console.log(filtered.length);
             res.send(filtered);
         });
     })
