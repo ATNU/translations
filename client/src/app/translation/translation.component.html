@@ -1,12 +1,4 @@
 
-
-<H4>
-  Data for {{selectedYear}}
-</H4>
-<p>
-</p>
-
-
 <div class="example-container" >
   <mat-form-field >
     <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
@@ -17,24 +9,24 @@
     <!-- type Column -->
     <ng-container matColumnDef="type">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Type </mat-header-cell>
-      <mat-cell *matCellDef="let translationItem"  (click)="openDetailsModal(translationItem.details, translationItem.year)"> {{translationItem.type}} </mat-cell>
+      <mat-cell *matCellDef="let translationItem"  (click)="openDetailsModal(translationItem)"> {{translationItem.type}} </mat-cell>
     </ng-container>
 
     <!-- Original Title Column -->
     <ng-container matColumnDef="originalTitle">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Original Title </mat-header-cell>
-      <mat-cell *matCellDef="let translationItem"  (click)="openDetailsModal(translationItem.details, translationItem.year)"> {{translationItem.originalTitle}} </mat-cell>
+      <mat-cell *matCellDef="let translationItem"  (click)="openDetailsModal(translationItem)"> {{translationItem.originalTitle}} </mat-cell>
     </ng-container>
 
     <!-- original Author Column -->
     <ng-container matColumnDef="originalAuthor">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Original Author </mat-header-cell>
-      <mat-cell *matCellDef="let translationItem"  (click)="openDetailsModal(translationItem.details, translationItem.year)"> {{translationItem.originalAuthor}} </mat-cell>
+      <mat-cell *matCellDef="let translationItem"  (click)="openDetailsModal(translationItem)"> {{translationItem.originalAuthor}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="city">
       <mat-header-cell *matHeaderCellDef mat-sort-header> City </mat-header-cell>
-      <mat-cell *matCellDef="let translationItem"  (click)="openDetailsModal(translationItem.details, translationItem.year)"> {{translationItem.city}} </mat-cell>
+      <mat-cell *matCellDef="let translationItem"  (click)="openDetailsModal(translationItem)"> {{translationItem.city}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="details">

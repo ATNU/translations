@@ -43,7 +43,6 @@ export class MapComponent implements OnInit {
     // subscribe to the service data
     this.dateService.currentYear.subscribe(selectedYear => this.selectedYear = selectedYear);
     this.dateService.currentImage.subscribe(mapImage => this.mapImage  = mapImage);
-
     this.translationService.selectedLocations.subscribe(locationsList => {
       this.locationsList = locationsList;
       this.addMapMarkers();
@@ -124,6 +123,7 @@ const reviewIcon = L.icon({
     }
       this.overlays =  new L.LayerGroup();
       L.imageOverlay(this.mapImage, this.imageBounds).addTo(this.overlays);
+      console.log('here is the map');
       this.mymap.addLayer(this.overlays);
   }
 

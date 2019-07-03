@@ -4,21 +4,25 @@
       <ng5-slider [(value)]="selectedYear" [options]="options" (valueChange)="clickTimeline()" [ngClass]="{'timeline-disabled': disableTimeline}"></ng5-slider>
     </div>
     <div class="slider-buttons">
-      <button mat-icon-button (click)="playTimeline()"> 
+      <button mat-icon-button (click)="playTimeline()" [disabled]="!!disableTimeline"> 
         <mat-icon>play_circle_outline</mat-icon>
       </button>
 
-     <button mat-icon-button (click)="pauseTimeline()"> 
+     <button mat-icon-button (click)="pauseTimeline()" [disabled]="!!disableTimeline"> 
         <mat-icon>pause_circle_outline</mat-icon>
       </button>
 
-      <button mat-icon-button (click)="refreshTimeline()"> 
+      <button mat-icon-button (click)="refreshTimeline()" [disabled]="!!disableTimeline"> 
         <mat-icon>replay</mat-icon>
       </button>
 
-      <button (click)="showAllData()"> 
+      <button (click)="showAllData()" [hidden]="!!disableTimeline"> 
           View All Data
-        </button>
+      </button>
+
+      <button (click)="showYearData()" [hidden]="!disableTimeline"> 
+        View Data by Year
+    </button>
     </div>
   </mat-card-content>
 </mat-card>

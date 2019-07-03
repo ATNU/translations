@@ -44,10 +44,10 @@ export class TimelineComponent implements OnInit {
     /* these are the years that show noted below the timeline, cut down from full list for visibility,
     the year must also have an associated tick in the ticksarray */
     this.disableTimeline = false;
+    this.onChangeDisabled();
   }
 
   clickTimeline() {
-    this.disableTimeline = false;
     this.pauseTimeline();
     this.sendValue();
   }
@@ -106,7 +106,19 @@ export class TimelineComponent implements OnInit {
 
   showAllData() {
     this.disableTimeline = true;
+    this.onChangeDisabled();
     this.translationService.getAllTranslationData();
+  }
+
+  showYearData(){
+    this.selectedYear = 1789;
+    this.sendValue();
+    this.disableTimeline = false;
+    this.onChangeDisabled();
+  }
+
+  onChangeDisabled(): void {
+    this.options = Object.assign({}, this.options, {disabled: this.disableTimeline});
   }
 
 }
