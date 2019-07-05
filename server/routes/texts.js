@@ -2,13 +2,16 @@ const express = require('express');
 const router = express.Router();
 const GoogleSpreadsheet = require('google-spreadsheet');
 const creds = require('./client_secret.js');
-const JSONcreds = JSON.stringify(creds);
 const _ = require('lodash/core');
 
 //translations spreadsheet
 const doc = new GoogleSpreadsheet(process.env.SPREADSHEET_NAME_TRANSLATIONS);
 
-
+//convert to JSON to remove extra '\'
+const tempCreds = JSON.stringify(creds, null, 2);
+const JSONcreds = tempCreds.replace(/\\\\n/gm, "\\n");
+//convert back to js object
+const JScreds = JSON.parse(JSONcreds);
 
 function filterByYear(year, sheet) {
     return _.filter(sheet, function (o) {
@@ -21,7 +24,7 @@ function filterByYear(year, sheet) {
 router.get('/:year', function (req, res) {
     let year = req.params.year;
 
-    doc.useServiceAccountAuth(creds, function (err) {
+    doc.useServiceAccountAuth(JScreds, function (err) {
         if (err) {
             res.status(401);
             res.send('Service account access forbidden');
