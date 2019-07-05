@@ -2,14 +2,15 @@ const express = require('express');
 const router = express.Router();
 const GoogleSpreadsheet = require('google-spreadsheet');
 const creds = require('./client_secret.js');
-const JSONcreds = JSON.stringify(creds);
+
 const _ = require('lodash/core');
 
 //translations spreadsheet
 const doc = new GoogleSpreadsheet(process.env.SPREADSHEET_NAME_TRANSLATIONS);
 
-
-
+//create JSON file for credentials
+const tempCreds = JSON.stringify(creds);
+const JSONcreds = tempCreds.replace(/\\\\n/g, "\\n")
 
 /* GET all texts published in year provided e.g texts/1792 */
 router.get('/', function (req, res) {
