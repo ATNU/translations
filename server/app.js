@@ -5,6 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 
+require('dotenv').config();
+
 var textsRouter = require('./routes/texts');
 var allTextsRouter = require('./routes/allTexts');
 var citiesRouter = require('./routes/cities');

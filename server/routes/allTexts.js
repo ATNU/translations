@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const GoogleSpreadsheet = require('google-spreadsheet');
-const creds = require('./client_secret.json');
+const creds = require('./client_secret.js');
+const JSONcreds = JSON.stringify(creds);
 const _ = require('lodash/core');
 
 //translations spreadsheet
-const doc = new GoogleSpreadsheet('1rXkE-S5jIf--YrEzAfNbEd9YyAgRNJ5cVTuwRE81nWM');
+const doc = new GoogleSpreadsheet(process.env.SPREADSHEET_NAME_TRANSLATIONS);
 
 
 
@@ -13,7 +14,8 @@ const doc = new GoogleSpreadsheet('1rXkE-S5jIf--YrEzAfNbEd9YyAgRNJ5cVTuwRE81nWM'
 /* GET all texts published in year provided e.g texts/1792 */
 router.get('/', function (req, res) {
     console.log("all texts route reached");
-    doc.useServiceAccountAuth(creds, function (err) {
+    console.log(JSONcreds);
+    doc.useServiceAccountAuth(JSONcreds, function (err) {
         if (err) {
             res.status(401);
             res.send('Service account access forbidden');

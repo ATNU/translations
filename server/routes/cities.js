@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const GoogleSpreadsheet = require('google-spreadsheet');
-const creds = require('./client_secret.json');
+const creds = require('./client_secret.js');
+const JSONcreds = JSON.stringify(creds);
 const _ = require('lodash/core');
 
 //cities spreadsheet
-const doc = new GoogleSpreadsheet('1tuEa2KegHT85-Gzey5GKJnu4rtTx6qrMOUsA68fTeAU');
+const doc = new GoogleSpreadsheet(process.env.SPREADSHEET_NAME_CITIES);
 
 
 
@@ -13,7 +14,7 @@ const doc = new GoogleSpreadsheet('1tuEa2KegHT85-Gzey5GKJnu4rtTx6qrMOUsA68fTeAU'
 router.get('/', function (req, res) {
     console.log("Cities route reached");
 
-    doc.useServiceAccountAuth(creds, function (err) {
+    doc.useServiceAccountAuth(JSONcreds, function (err) {
         if (err) {
             res.status(401);
             res.send('Service account access forbidden');
