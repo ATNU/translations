@@ -110,7 +110,7 @@ export class TimelineComponent implements OnInit {
     this.translationService.getAllTranslationData();
   }
 
-  showYearData(){
+  showYearData() {
     this.selectedYear = 1789;
     this.sendValue();
     this.disableTimeline = false;
