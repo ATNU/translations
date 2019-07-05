@@ -9,7 +9,7 @@ const _ = require('lodash/core');
 const doc = new GoogleSpreadsheet(process.env.SPREADSHEET_NAME_TRANSLATIONS);
 
 //create JSON file for credentials
-const tempCreds = JSON.stringify(creds);
+const tempCreds = JSON.stringify(creds, null, 2);
 const JSONcreds = tempCreds.replace(/\\\\n/g, "\\n")
 
 /* GET all texts published in year provided e.g texts/1792 */
