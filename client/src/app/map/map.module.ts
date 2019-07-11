@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MapComponent } from './map.component';
+// import { MapComponent } from './map.component';
 
 @NgModule({
-  declarations: [MapComponent],
+  // declarations: [MapComponent],
   imports: [
     CommonModule
   ]

@@ -1,0 +1,28 @@
+version: "3"
+services:
+  client:
+    image: atnu-translations/client:latest
+    build: 
+      context: ./client
+      args:
+        - "PROD=true"
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    tty: true
+    depends_on:
+      - server
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+    networks: 
+      - translations
+  server:
+    image: atnu-translations/server:latest
+    build: ./server
+    ports:
+      - "3000:3000"
+    command: "npm start"  
+    networks: 
+      - translations
+networks: 
+  translations:

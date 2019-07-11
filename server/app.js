@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
+var cors = require('cors');
 
 var textsRouter = require('./routes/texts');
 var allTextsRouter = require('./routes/allTexts');
@@ -18,6 +19,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 app.use(logger('dev'));
+app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
@@ -26,11 +28,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 
-app.use('/', indexRouter);
-app.use('/texts', textsRouter);
-app.use('/cities', citiesRouter);
-app.use('/allTexts', allTextsRouter);
-app.use('/addLocation', locationsRouter);
+app.use('/api/', indexRouter);
+app.use('/api/texts', textsRouter);
+app.use('/api/cities', citiesRouter);
+app.use('/api/allTexts', allTextsRouter);
+app.use('/api/addLocation', locationsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

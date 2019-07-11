@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TranslationComponent } from './translation.component';
+// import { TranslationComponent } from './translation.component';
 
 @NgModule({
-  declarations: [TranslationComponent],
+  // declarations: [TranslationComponent],
   imports: [
     CommonModule
   ]

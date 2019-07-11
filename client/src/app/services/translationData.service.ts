@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { LocationModel } from '../models/location.model';
 import { TranslationModel } from '../models/translation.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -40,7 +41,7 @@ export class TranslationDataService {
  // translationsListAll: TranslationModel[];
 
   constructor( private http: HttpClient ) {
-    this.http.get('http://localhost:3000/cities', {observe: 'response'}).subscribe( res => { this.allLocationCoOrds = res.body; });
+    this.http.get(environment.apiBaseURL + '/cities', {observe: 'response'}).subscribe( res => { this.allLocationCoOrds = res.body; });
     this.coOrdListforYear = [];
     this.translationsListforYear = [];
     this.citiesToFind = [];
@@ -49,7 +50,7 @@ export class TranslationDataService {
   getAllTranslationData() {
     this.translationsListforYear = [];
     // use the year to pull the translation data from server
-    this.http.get('http://localhost:3000/allTexts/', {observe: 'response'}).subscribe( res => {
+    this.http.get(environment.apiBaseURL + '/allTexts/', {observe: 'response'}).subscribe( res => {
       this.translationDataResponse = res.body;
       if (this.translationDataResponse != null) {
         this.getLocationCoOrdinates();
@@ -61,7 +62,7 @@ export class TranslationDataService {
   getTranslationData(selectedYear: number) {
     this.translationsListforYear = [];
     // use the year to pull the translation data from server
-    this.http.get('http://localhost:3000/texts/' + selectedYear, {observe: 'response'}).subscribe( res => {
+    this.http.get(environment.apiBaseURL + '/texts/' + selectedYear, {observe: 'response'}).subscribe( res => {
       this.translationDataResponse = res.body;
       if (this.translationDataResponse != null) {
         console.log('translatopn data response');
@@ -124,7 +125,7 @@ export class TranslationDataService {
             city
           };
           console.log('sending to sheet');
-          this.http.post('http://localhost:3000/addLocation/', newCity, {observe: 'response', responseType: 'text'}).subscribe( res => {
+          this.http.post(environment.apiBaseURL + '/addLocation/', newCity, {observe: 'response', responseType: 'text'}).subscribe( res => {
             console.log(res.body);
           });
 

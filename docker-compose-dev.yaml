@@ -1,14 +1,28 @@
 version: "3"
 services:
   client:
-    image: node:8
-    volumes:
-      - "./client/:/usr/local/app"
-    command: bash -c "cd /usr/local/app && npm install -g @angular/cli && npm install && npm rebuild node-sass && npm run start"
+    image: atnu-translations/client:latest
+    build: 
+      context: ./client
+      args:
+        - "PROD=false"
+    restart: unless-stopped
     ports:
-      - "4200:4200"
-       - '49153:49153'
-    networks:
+      - "4200:80"
+      - "4433:443"
+    tty: true
+    depends_on:
+      - server
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+    networks: 
       - translations
-networks:
+  server:
+    image: atnu-translations/server:latest
+    build: ./server
+    ports:
+      - "3000:3000"
+    command: "npm start"  
+    networks: 
+      - translations
+networks: 
   translations:
