@@ -24,5 +24,6 @@ services:
     command: "npm start"  
     networks: 
       - translations
+    env_file: .env
 networks: 
   translations:
