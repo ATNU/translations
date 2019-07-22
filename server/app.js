@@ -6,6 +6,8 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 var cors = require('cors');
 
+require('dotenv').config();
+
 var textsRouter = require('./routes/texts');
 var allTextsRouter = require('./routes/allTexts');
 var citiesRouter = require('./routes/cities');

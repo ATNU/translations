@@ -1,11 +1,17 @@
 const express = require('express');
 const router = express.Router();
 const GoogleSpreadsheet = require('google-spreadsheet');
-const creds = require('./client_secret.json');
+const creds = require('./client_secret.js');
 const _ = require('lodash');
 
 //translations spreadsheet
-const doc = new GoogleSpreadsheet('1tuEa2KegHT85-Gzey5GKJnu4rtTx6qrMOUsA68fTeAU');
+const doc = new GoogleSpreadsheet(process.env.SPREADSHEET_NAME_CITIES);
+
+//convert to JSON to remove extra '\'
+const tempCreds = JSON.stringify(creds, null, 2);
+const JSONcreds = tempCreds.replace(/\\\\n/gm, "\\n");
+//convert back to js object
+const JScreds = JSON.parse(JSONcreds);
 
 var row;
 var exists = false;
@@ -19,7 +25,7 @@ function filterByCity(city, sheet) {
 router.post('/', function (req, res) {
     console.log("add location route reached");
 
-    doc.useServiceAccountAuth(creds, function (err) {
+    doc.useServiceAccountAuth(JScreds, function (err) {
         if (err) {
             res.status(401);
             res.send('Service account access forbidden');
