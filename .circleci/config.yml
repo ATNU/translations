@@ -1,0 +1,89 @@
+version: 1
+
+jobs:
+  build:
+    docker:
+      - image: circleci/node:10
+    environment:
+      O: "ATNU"
+      R: "translations"
+    steps:
+      - checkout
+      - run:
+          name: Determine which directories have changed
+          command: |
+            git diff --no-commit-id --name-only -r `git log -n 2 --oneline --pretty=format:"%h" | tail -n1` | cut -d/ -f1 | sort -u >  projects
+            printf "Modified directories:\n"
+            cat projects
+            while read project; do
+              if grep -Fxq $project projects.txt; then
+                printf "\nTriggerring build for dir: "$dir
+                curl -s -d build_parameters[CIRCLE_JOB]=${project} https://circleci.com/api/v1.1/project/github/$O/$R/tree/$CIRCLE_BRANCH?circle-token=67652ac1a6d9c0d844f36f98de608c4628dfcb28
+              fi
+            done <projects
+
+  server:
+    docker:
+      - image: circleci/node:10
+    working_directory: /go/src/github.com/ATNU/translations/server
+
+    steps:
+      - checkout:
+          path: /go/src/github.com/ATNU/translations
+
+      - restore_cache:
+          keys:
+            - v1-pkg-cache
+
+      run: mkdir /usr/local/app
+
+      - setup_remote_docker:
+                docker_layer_caching:
+
+      - run: |
+          cd .. && docker build -f server/Dockerfile -t rsenu.azurecr.io/translations:latest -t rsenu.azurecr.io/translations-server:$CIRCLE_SHA1 .
+          docker login -u $DOCKER_USER -p $DOCKER_PASS rsenu.azurecr.io
+          docker push rsenu.azurecr.io/translations:latest
+          docker push rsenu.azurecr.io/translations:$CIRCLE_SHA1
+
+      - save_cache:
+          key: v1-pkg-cache
+          paths:
+            - "/go/pkg"
+
+
+
+
+  client:
+      docker:
+        - image: circleci/node:10
+      working_directory: ~/repo/client
+
+      steps:
+        - checkout:
+            path: ~/repo
+
+        - restore_cache:
+            keys:
+              - v1-dependencies-{{ checksum "package.json" }}
+              - v1-dependencies-
+
+        - run: npm install
+        - run: npm rebuild node-sass
+        - run: npm run build -- --output-path=./dist/out --configuration production
+
+        - setup_remote_docker:
+                  docker_layer_caching:
+
+        - run: |
+            cd .. && docker build -f client/Dockerfile -t rsenu.azurecr.io/translations:latest -t rsenu.azurecr.io/translations-client:$CIRCLE_SHA1 .
+            docker login -u $DOCKER_USER -p $DOCKER_PASS rsenu.azurecr.io
+            docker push rsenu.azurecr.io/translations-client:latest
+            docker push rsenu.azurecr.io/translations-client:$CIRCLE_SHA1
+
+        - save_cache:
+            paths:
+              - node_modules
+            key: v1-dependencies-{{ checksum "package.json" }}
+
+
