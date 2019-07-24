@@ -14,7 +14,7 @@ const JSONcreds = tempCreds.replace(/\\\\n/gm, "\\n");
 //convert back to js object
 const JScreds = JSON.parse(JSONcreds);
 
-/* GET all texts published in year provided e.g texts/1792 */
+/* GET all texts */
 router.get('/', function (req, res) {
     console.log("all texts route reached");
     doc.useServiceAccountAuth(JScreds, function (err) {

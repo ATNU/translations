@@ -48,10 +48,11 @@ router.post('/', function (req, res) {
                 res.send('Access to spreadsheet forbidden');
             }
 
-            //Filter rows by year
+            //See if there are already entries for that city
             const filtered = filterByCity(city, rows);
             console.log(filtered.length);
 
+            //If there aren't already entries add new one
             if ( filtered.length < 1) {
             doc.addRow(1, row, function (err) {
                 if (err) {
