@@ -57,11 +57,11 @@ jobs:
   client:
       docker:
         - image: circleci/node:10
-      working_directory: /go/src/github.com/ATNU/translations/client
+      working_directory: ~/repo/client
 
       steps:
         - checkout:
-            path: /go/src/github.com/ATNU/translations
+            path: ~/repo
 
         - restore_cache:
             keys:
