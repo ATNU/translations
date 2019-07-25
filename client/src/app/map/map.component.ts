@@ -30,7 +30,7 @@ export class MapComponent implements OnInit {
 
   ngOnInit() {
     this.markers = L.markerClusterGroup();
-  // this.overlays =  new L.LayerGroup();
+   this.overlays =  new L.LayerGroup();
     this.imageBounds = [[24.6873, -24.4149 ], [71.69171, 53.00962]];
     this.histMapON = true;
     this.mymap = L.map('mapid').setView([55, 12], 4);
