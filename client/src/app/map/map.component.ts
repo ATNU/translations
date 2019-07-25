@@ -30,7 +30,7 @@ export class MapComponent implements OnInit {
 
   ngOnInit() {
     this.markers = L.markerClusterGroup();
-   this.overlays =  new L.LayerGroup();
+  // this.overlays =  new L.LayerGroup();
     this.imageBounds = [[24.6873, -24.4149 ], [71.69171, 53.00962]];
     this.histMapON = true;
     this.mymap = L.map('mapid').setView([55, 12], 4);
@@ -82,7 +82,7 @@ const reviewIcon = L.icon({
     if (this.locationsList.length > 0) {
       for (let locationEntry of this.locationsList) {
         let marker = L.marker;
-        //console.log(locationEntry);
+        console.log(locationEntry);
         console.log(locationEntry.type);
         if (locationEntry.type === 'Translation') {
           marker = L.marker([locationEntry.lattitude, locationEntry.longitude], {icon : translationIcon  });
