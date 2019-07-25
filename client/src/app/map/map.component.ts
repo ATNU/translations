@@ -82,7 +82,7 @@ const reviewIcon = L.icon({
     if (this.locationsList.length > 0) {
       for (let locationEntry of this.locationsList) {
         let marker = L.marker;
-        // console.log(locationEntry); aaaa
+        // console.log(locationEntry);
         console.log(locationEntry.type);
         if (locationEntry.type === 'Translation') {
           marker = L.marker([locationEntry.lattitude, locationEntry.longitude], {icon : translationIcon  });

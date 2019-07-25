@@ -68,7 +68,7 @@ jobs:
               - v1-dependencies-{{ checksum "package.json" }}
               - v1-dependencies-
 
-        - run: npm install -g @angular/cli && npm install --force
+        - run: sudo npm install -g @angular/cli && npm install --force
         - run: npm rebuild node-sass
         - run: ng build --prod=false
 
