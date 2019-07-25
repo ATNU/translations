@@ -11,7 +11,6 @@ require('dotenv').config();
 var textsRouter = require('./routes/texts');
 var allTextsRouter = require('./routes/allTexts');
 var citiesRouter = require('./routes/cities');
-var indexRouter = require('./routes/index');
 var locationsRouter = require('./routes/addLocation');
 
 var app = express();
@@ -29,14 +28,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-
-app.use('/api/', indexRouter);
 app.use('/api/texts', textsRouter);
 app.use('/api/cities', citiesRouter);
 app.use('/api/allTexts', allTextsRouter);
 app.use('/api/addLocation', locationsRouter);
 
-// catch 404 and forward to error handler
+/*// catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
@@ -50,6 +47,6 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
-});
+});*/
 
 module.exports = app;

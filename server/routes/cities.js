@@ -7,13 +7,12 @@ const _ = require('lodash/core');
 //cities spreadsheet
 const doc = new GoogleSpreadsheet(process.env.SPREADSHEET_NAME_CITIES);
 
-//convert to JSON to remove extra '\'
-const tempCreds = JSON.stringify(creds, null, 2);
-const JSONcreds = tempCreds.replace(/\\\\n/gm, "\\n");
-//convert back to js object
-const JScreds = JSON.parse(JSONcreds);
+//parse creds to process env variable password into required format
+const JScreds = require('../util/credsParser.js').parse(creds);
 
-/* GET all cities saved in spreadsheet along with longitude and latitude */
+/**
+ *  GET all cities saved in spreadsheet along with longitude and latitude
+ *  */
 router.get('/', function (req, res) {
     console.log("Cities route reached");
 

@@ -3,25 +3,17 @@ const router = express.Router();
 const GoogleSpreadsheet = require('google-spreadsheet');
 const creds = require('./client_secret.js');
 const _ = require('lodash');
+const filter = require('../util/filter.js');
+
+//parse creds to process env variable password into required format
+const JScreds = require('../util/credsParser.js').parse(creds);
 
 //translations spreadsheet
 const doc = new GoogleSpreadsheet(process.env.SPREADSHEET_NAME_CITIES);
 
-//convert to JSON to remove extra '\'
-const tempCreds = JSON.stringify(creds, null, 2);
-const JSONcreds = tempCreds.replace(/\\\\n/gm, "\\n");
-//convert back to js object
-const JScreds = JSON.parse(JSONcreds);
-
-var row;
-var exists = false;
-
-function filterByCity(city, sheet) {
-    return _.filter(sheet, function (o) {
-        return o.city === city;
-    });
-}
-
+/**
+POST a new entry to the 'cities' google spreadsheet. Must provide a city, longitude and latitude field in JSON.
+ */
 router.post('/', function (req, res) {
     console.log("add location route reached");
 
@@ -31,14 +23,15 @@ router.post('/', function (req, res) {
             res.send('Service account access forbidden');
         }
 
-        console.log(req.body.city);
 
-        var city = req.body.city;
-        var longitude = req.body.longitude;
-        var latitude = req.body.latitude;
+        //get fields and build a row object
+        const city = req.body.city;
+        const longitude = req.body.longitude;
+        const latitude = req.body.latitude;
 
+        const row = {city: city, latitude: latitude, longitude: longitude};
 
-        row = {city: city, latitude: latitude, longitude: longitude};
+        //todo check correct JSON provided
 
         console.log(city, latitude, longitude);
 
@@ -49,7 +42,7 @@ router.post('/', function (req, res) {
             }
 
             //See if there are already entries for that city
-            const filtered = filterByCity(city, rows);
+            const filtered = filter.filterByCity(city, rows);
             console.log(filtered.length);
 
             //If there aren't already entries add new one

@@ -3,24 +3,19 @@ const router = express.Router();
 const GoogleSpreadsheet = require('google-spreadsheet');
 const creds = require('./client_secret.js');
 const _ = require('lodash/core');
+const filter = require('../util/filter.js');
 
 //translations spreadsheet
 const doc = new GoogleSpreadsheet(process.env.SPREADSHEET_NAME_TRANSLATIONS);
 
-//convert to JSON to remove extra '\'
-const tempCreds = JSON.stringify(creds, null, 2);
-const JSONcreds = tempCreds.replace(/\\\\n/gm, "\\n");
-//convert back to js object
-const JScreds = JSON.parse(JSONcreds);
-
-function filterByYear(year, sheet) {
-    return _.filter(sheet, function (o) {
-        return o.year === year;
-    });
-}
+//parse creds to process env variable password into required format
+const JScreds = require('../util/credsParser.js').parse(creds);
 
 
-/* GET all texts published in year provided e.g texts/1792 */
+
+/**
+ *  GET all texts published in year provided e.g texts/1792
+ *  */
 router.get('/:year', function (req, res) {
     let year = req.params.year;
 
@@ -38,7 +33,7 @@ router.get('/:year', function (req, res) {
             }
 
             //Filter rows by year
-            const filtered = filterByYear(year, rows);
+            const filtered = filter.filterByYear(year, rows);
             console.log(filtered.length);
             res.send(filtered);
         });
