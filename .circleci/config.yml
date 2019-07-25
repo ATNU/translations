@@ -68,9 +68,9 @@ jobs:
               - v1-dependencies-{{ checksum "package.json" }}
               - v1-dependencies-
 
-        - run: npm install
+        - run: npm install -g @angular/cli && npm install --force
         - run: npm rebuild node-sass
-        - run: npm run build -- --output-path=./dist/out --configuration production
+        - run: ng build --prod=false
 
         - setup_remote_docker:
                   docker_layer_caching:
