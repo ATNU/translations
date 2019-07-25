@@ -35,7 +35,7 @@ jobs:
           keys:
             - v1-pkg-cache
 
-      - run: mkdir /usr/local/app
+      - run: npm install
 
       - setup_remote_docker:
                 docker_layer_caching:

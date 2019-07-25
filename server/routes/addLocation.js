@@ -23,7 +23,7 @@ function filterByCity(city, sheet) {
 }
 
 router.post('/', function (req, res) {
-    console.log("add location route reached");
+   // console.log("add location route reached");
 
     doc.useServiceAccountAuth(JScreds, function (err) {
         if (err) {
