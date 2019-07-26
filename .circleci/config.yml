@@ -7,7 +7,7 @@ jobs:
     environment:
       O: "ATNU"
       R: "translations"
-
+      NG_CLI_ANALYTICS: "ci"
     steps:
       - checkout
       - run:
