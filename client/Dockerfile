@@ -8,5 +8,5 @@ RUN npm rebuild node-sass
 RUN ng build --prod=${PROD}
 
 FROM nginx:alpine
-COPY --from=builder /usr/local/app/dist/translations /usr/share/nginx/html
+COPY --from=builder /usr/local/app/client/dist/translations /usr/share/nginx/html
 RUN ls /usr/share/nginx/html
