@@ -40,7 +40,7 @@ export class MapComponent implements OnInit {
       attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(this.mymap);
 
-    // subscribe to the service data
+    //  subscribe to the service data
     this.dateService.currentYear.subscribe(selectedYear => this.selectedYear = selectedYear);
     this.dateService.currentImage.subscribe(mapImage => this.mapImage  = mapImage);
     this.translationService.selectedLocations.subscribe(locationsList => {
