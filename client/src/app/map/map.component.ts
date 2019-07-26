@@ -123,7 +123,7 @@ const reviewIcon = L.icon({
     }
       this.overlays =  new L.LayerGroup();
       L.imageOverlay(this.mapImage, this.imageBounds).addTo(this.overlays);
-      console.log('here is the map');
+     // console.log('here is the map');
       this.mymap.addLayer(this.overlays);
   }
 
