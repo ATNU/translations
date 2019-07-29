@@ -42,10 +42,10 @@ jobs:
                 docker_layer_caching:
 
       - run: |
-          cd .. && docker build -f server/Dockerfile -t rsenu.azurecr.io/translations:latest -t rsenu.azurecr.io/translations-server:$CIRCLE_SHA1 .
+          cd .. && docker build -f server/Dockerfile -t rsenu.azurecr.io/translations-server:latest -t rsenu.azurecr.io/translations-server:$CIRCLE_SHA1 .
           docker login -u $DOCKER_USER -p $DOCKER_PASS rsenu.azurecr.io
-          docker push rsenu.azurecr.io/translations:latest
-          docker push rsenu.azurecr.io/translations:$CIRCLE_SHA1
+          docker push rsenu.azurecr.io/translations-server:latest
+          docker push rsenu.azurecr.io/translations-server:$CIRCLE_SHA1
 
       - save_cache:
           key: v1-pkg-cache
