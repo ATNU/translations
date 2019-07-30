@@ -8,13 +8,13 @@ const _ = require('lodash/core');
 //translations spreadsheet
 const doc = new GoogleSpreadsheet(process.env.SPREADSHEET_NAME_TRANSLATIONS);
 
-//convert to JSON to remove extra '\'
-const tempCreds = JSON.stringify(creds, null, 2);
-const JSONcreds = tempCreds.replace(/\\\\n/gm, "\\n");
-//convert back to js object
-const JScreds = JSON.parse(JSONcreds);
+//parse creds to process env variable password into required format
+const JScreds = require('../util/credsParser.js').parse(creds);
 
-/* GET all texts published in year provided e.g texts/1792 */
+
+/**
+GET all texts saved in google spreadsheet 'translations'
+*/
 router.get('/', function (req, res) {
     console.log("all texts route reached");
     doc.useServiceAccountAuth(JScreds, function (err) {
