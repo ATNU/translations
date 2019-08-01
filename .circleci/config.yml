@@ -42,10 +42,10 @@ jobs:
                 docker_layer_caching:
 
       - run: |
-          cd .. && docker build -f server/Dockerfile -t rsenu.azurecr.io/translations-server:latest -t rsenu.azurecr.io/translations-server:$CIRCLE_SHA1 .
-          docker login -u $DOCKER_USER -p $DOCKER_PASS rsenu.azurecr.io
-          docker push rsenu.azurecr.io/translations-server:latest
-          docker push rsenu.azurecr.io/translations-server:$CIRCLE_SHA1
+          cd .. && docker build -f server/Dockerfile -t rsenu-atnu-group.azurecr.io/translations-server:latest -t rsenu-atnu-group.azurecr.io/translations-server:$CIRCLE_SHA1 .
+          docker login -u $DOCKER_USER -p $DOCKER_PASS rsenu-atnu-group.azurecr.io
+          docker push rsenu-atnu-group.azurecr.io/translations-server:latest
+          docker push rsenu-atnu-group.azurecr.io/translations-server:$CIRCLE_SHA1
 
       - save_cache:
           key: v1-pkg-cache
@@ -79,10 +79,10 @@ jobs:
                   docker_layer_caching:
 
         - run: |
-            cd .. && docker build -f client/Dockerfile -t rsenu.azurecr.io/translations-client:latest -t rsenu.azurecr.io/translations-client:$CIRCLE_SHA1 .
-            docker login -u $DOCKER_USER -p $DOCKER_PASS rsenu.azurecr.io
-            docker push rsenu.azurecr.io/translations-client:latest
-            docker push rsenu.azurecr.io/translations-client:$CIRCLE_SHA1
+            cd .. && docker build -f client/Dockerfile -t rsenu-atnu-group.azurecr.io/translations-client:latest -t rsenu-atnu-group.azurecr.io/translations-client:$CIRCLE_SHA1 .
+            docker login -u $DOCKER_USER -p $DOCKER_PASS rsenu-atnu-group.azurecr.io
+            docker push rsenu-atnu-group.azurecr.io/translations-client:latest
+            docker push rsenursenu-atnu-group.azurecr.io/translations-client:$CIRCLE_SHA1
 
         - save_cache:
             paths:
