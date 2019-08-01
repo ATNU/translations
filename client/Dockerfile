@@ -1,5 +1,5 @@
 FROM node:10 as builder
-ARG PROD=false
+ARG PROD=true
 RUN mkdir /usr/local/app
 ADD . /usr/local/app
 WORKDIR /usr/local/app/client
