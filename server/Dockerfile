@@ -5,3 +5,4 @@ ADD . /usr/local/app
 WORKDIR /usr/local/app/server
 RUN npm install
 
+EXPOSE 3000
