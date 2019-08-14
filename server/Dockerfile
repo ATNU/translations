@@ -4,3 +4,7 @@ RUN mkdir /usr/local/app
 ADD . /usr/local/app
 WORKDIR /usr/local/app/server
 RUN npm install
+
+EXPOSE 3000
+
+ENTRYPOINT ["npm", "start"]
