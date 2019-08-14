@@ -5,6 +5,8 @@ Mapping translations of feminist literature in Europe 1750-1930.
 #### Developers
 
 [Mark Turner](https://github.com/markdturner)
+[Fiona Galston](https://github.com/fiona-galston)
+[Kate Court](https://github.com/KateCourt)
 
 #### Researchers
 
